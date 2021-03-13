@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Generator;
 use Illuminate\Container\Container;
@@ -42,6 +43,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'name' => 'Carlo Miguel Dy',
+            'email' => 'dev@dev.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'),
+        ]);
         \App\Models\User::factory(5)->create();
         \App\Models\Room::factory(10)->create();
         $reservations = \App\Models\Reservation::factory(25)->create();
