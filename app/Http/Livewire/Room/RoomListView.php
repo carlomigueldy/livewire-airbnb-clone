@@ -11,6 +11,13 @@ class RoomListView extends Component
 
     public $rooms;
 
+    public function getHasRoomsProperty()
+    {
+        if ($this->rooms == null) return false;
+
+        return count($this->rooms) > 0;
+    }
+
     public function mount(Room $room)
     {
         $this->room = $room;
@@ -20,6 +27,11 @@ class RoomListView extends Component
     public function toCreateView()
     {
         return redirect(route('rooms.create'));
+    }
+
+    public function toRoomDetailView($id)
+    {
+        return redirect(route('rooms.show', $id));
     }
 
     public function render()

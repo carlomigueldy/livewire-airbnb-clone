@@ -36,7 +36,7 @@
                             @break
 
                             @case('number')
-                            <input type="number" min="0" max="10" class="w-full px-3 rounded-md "
+                            <input type="number" class="w-full px-3 rounded-md "
                                 wire:model="{{ 'form.' . $field }}">
                             @break
 

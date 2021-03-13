@@ -150,7 +150,13 @@ class RoomFormView extends Component
             }
 
             $this->mapped = $this->form;
-            Room::create($this->form);
+            $room = Room::create($this->form);
+
+            if ($room) {
+                session()->flash('success', 'You have created a new room!');
+
+                return redirect(route('rooms.index'));
+            }
         }
     }
 
