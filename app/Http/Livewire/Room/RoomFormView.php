@@ -3,17 +3,30 @@
 namespace App\Http\Livewire\Room;
 
 use App\Models\Room;
-use App\Repository\Contracts\RoomRepositoryInterface;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class RoomFormView extends Component
 {
-    private $roomRepository;
-
     public $mapped;
 
+    public $form = [
+        'home_type' => null,
+        'room_type' => null,
+        'total_occupancy' => null,
+        'total_bedrooms' => null,
+        'total_bathrooms' => null,
+        'summary' => null,
+        'address' => null,
+        'price' => null,
+        'has_tv' => false,
+        'has_kitchen' => false,
+        'has_air_con' => false,
+        'has_heathing' => false,
+        'is_draft' => false,
+    ];
+
     public $fields = [
-        // 'owner_id' => null,
         'home_type' => [
             'value' => null,
             'type' => 'select',
@@ -74,53 +87,68 @@ class RoomFormView extends Component
             'required' => true,
         ],
         'has_tv' => [
-            'value' => null,
+            'value' => false,
             'type' => 'checkbox',
             'required' => false,
         ],
         'has_kitchen' => [
-            'value' => null,
+            'value' => false,
             'type' => 'checkbox',
             'required' => false,
         ],
         'has_air_con' => [
-            'value' => null,
+            'value' => false,
             'type' => 'checkbox',
             'required' => false,
         ],
         'has_heathing' => [
-            'value' => null,
+            'value' => false,
             'type' => 'checkbox',
             'required' => false,
         ],
-
-        // 'latitude' => null,
-        // 'longitude' => null,
-        // 'published_at' => null,
+        'is_draft' => [
+            'value' => false,
+            'type' => 'checkbox',
+            'required' => false,
+        ],
     ];
 
-    // /**
-    //  * @param RoomRepositoryInterface $roomRepository
-    //  * @return void
-    //  */
-    // public function mount(RoomRepositoryInterface $roomRepository)
-    // {
-    //     $this->roomRepository = $roomRepository;
-    // }
+    protected $rules = [
+        'form.home_type' => 'required',
+        'form.room_type' => 'required',
+        'form.total_occupancy' => 'required|integer',
+        'form.total_bedrooms' => 'required|integer',
+        'form.total_bathrooms' => 'required|integer',
+        'form.address' => 'required',
+    ];
+
+    protected $messages = [
+        'form.home_type.required' => 'Must select a home type.',
+        'form.room_type.required' => 'Must select a room type.',
+        'form.total_occupancy.required' => 'Please specifiy the total occupancy.',
+        'form.total_occupancy.integer' => 'It should be an integer value.',
+        'form.total_bedrooms.required' => 'Please specifiy the total bedrooms.',
+        'form.total_bedrooms.integer' => 'It should be an integer value.',
+        'form.total_bathrooms.required' => 'Please specifiy the total bathrooms.',
+        'form.total_bathrooms.integer' => 'It should be an integer value.',
+        'form.address.required' => 'Please provide the address.',
+    ];
+
+    public function submit()
+    {
+        if ($this->validate()) {
+            $this->form['owner_id'] = auth()->id();
+            if ($this->form['is_draft']) {
+                $this->form['published_at'] = Carbon::now()->format('Y-m-d');
+            }
+
+            $this->mapped = $this->form;
+            Room::create($this->form);
+        }
+    }
 
     public function render()
     {
         return view('livewire.room.room-form-view');
-    }
-
-    public function submit()
-    {
-        $fields = collect($this->fields);
-        $mappedFields = $fields->map(function ($item, $key) {
-            return $item['value'];
-        })->values()->toArray();
-        $mappedFields['owner_id'] = auth()->id();
-
-        Room::create($mappedFields);
     }
 }
