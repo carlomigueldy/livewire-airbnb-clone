@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Reservation extends BaseModel
 {
     /** @return HasOne  */
-    public function reviews(): HasOne
+    public function review(): HasOne
     {
         return $this->hasOne(Review::class);
     }
