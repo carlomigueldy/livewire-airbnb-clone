@@ -8,6 +8,10 @@ use App\Http\Livewire\Auth\Passwords\Email;
 use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
+use App\Http\Livewire\Room\RoomDetailView;
+use App\Http\Livewire\Room\RoomFormView;
+use App\Http\Livewire\Room\RoomListView;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,36 +25,44 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+$router->view('/', 'welcome')->name('home');
 
-Route::middleware('guest')->group(function () {
-    Route::get('login', Login::class)
+$router->middleware('guest')->group(function (Router $router) {
+    $router->get('login', Login::class)
         ->name('login');
 
-    Route::get('register', Register::class)
+    $router->get('register', Register::class)
         ->name('register');
 });
 
-Route::get('password/reset', Email::class)
+$router->get('password/reset', Email::class)
     ->name('password.request');
 
-Route::get('password/reset/{token}', Reset::class)
+$router->get('password/reset/{token}', Reset::class)
     ->name('password.reset');
 
-Route::middleware('auth')->group(function () {
-    Route::get('email/verify', Verify::class)
+$router->middleware('auth')->group(function (Router $router) {
+    $router->get('email/verify', Verify::class)
         ->middleware('throttle:6,1')
         ->name('verification.notice');
 
-    Route::get('password/confirm', Confirm::class)
+    $router->get('password/confirm', Confirm::class)
         ->name('password.confirm');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('email/verify/{id}/{hash}', EmailVerificationController::class)
+$router->middleware('auth')->group(function (Router $router) {
+    $router->get('email/verify/{id}/{hash}', EmailVerificationController::class)
         ->middleware('signed')
         ->name('verification.verify');
 
-    Route::post('logout', LogoutController::class)
+    $router->post('logout', LogoutController::class)
         ->name('logout');
 });
+
+
+$router->middleware('auth')->group(function (Router $router) {
+    $router->get('rooms', RoomListView::class)->name('rooms.index');
+    $router->get('rooms/create', RoomFormView::class)->name('rooms.create');
+    $router->get('rooms/{roomId}', RoomDetailView::class)->name('rooms.show');
+});
+
