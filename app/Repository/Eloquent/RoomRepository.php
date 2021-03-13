@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository\Eloquent;
+namespace app\Repository\Eloquent;
 
 use App\Models\Room;
-use App\Repository\Contracts\RoomRepositoryInterface;
+use app\Repository\Contracts\RoomRepositoryInterface;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {

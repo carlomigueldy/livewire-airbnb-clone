@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Room extends BaseModel
 {
+    protected $guarded = ['created_at', 'updated_at', 'deleted_at', 'id'];
+
     /** @return BelongsTo  */
     public function owner(): BelongsTo
     {

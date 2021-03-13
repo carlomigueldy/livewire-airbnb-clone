@@ -2,10 +2,16 @@
 
 namespace App\Http\Livewire\Room;
 
+use App\Models\Room;
+use App\Repository\Contracts\RoomRepositoryInterface;
 use Livewire\Component;
 
 class RoomFormView extends Component
 {
+    private $roomRepository;
+
+    public $mapped;
+
     public $fields = [
         // 'owner_id' => null,
         'home_type' => [
@@ -54,7 +60,7 @@ class RoomFormView extends Component
         ],
         'summary' => [
             'value' => null,
-            'type' => 'text',
+            'type' => 'textarea',
             'required' => false,
         ],
         'address' => [
@@ -93,6 +99,15 @@ class RoomFormView extends Component
         // 'published_at' => null,
     ];
 
+    // /**
+    //  * @param RoomRepositoryInterface $roomRepository
+    //  * @return void
+    //  */
+    // public function mount(RoomRepositoryInterface $roomRepository)
+    // {
+    //     $this->roomRepository = $roomRepository;
+    // }
+
     public function render()
     {
         return view('livewire.room.room-form-view');
@@ -100,5 +115,12 @@ class RoomFormView extends Component
 
     public function submit()
     {
+        $fields = collect($this->fields);
+        $mappedFields = $fields->map(function ($item, $key) {
+            return $item['value'];
+        })->values()->toArray();
+        $mappedFields['owner_id'] = auth()->id();
+
+        Room::create($mappedFields);
     }
 }

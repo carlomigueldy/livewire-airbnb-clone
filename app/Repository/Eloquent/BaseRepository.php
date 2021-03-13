@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repository\Eloquent;
+namespace app\Repository\Eloquent;
 
 use App\Models\User;
-use App\Repository\Contracts\EloquentRepositoryInterface;
+use app\Repository\Contracts\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 

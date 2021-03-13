@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repository\Eloquent;
+namespace app\Repository\Eloquent;
 
 use App\Models\Reservation;
 use App\Models\Review;
-use App\Repository\Contracts\ReservationRepositoryInterface;
+use app\Repository\Contracts\ReservationRepositoryInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
 class ReservationRepository extends BaseRepository implements ReservationRepositoryInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Contracts;
+namespace app\Repository\Contracts;
 
 use App\Models\Reservation;
 use App\Models\Review;
