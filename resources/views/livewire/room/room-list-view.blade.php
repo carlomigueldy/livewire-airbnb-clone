@@ -9,7 +9,9 @@
         <div class="flex flex-wrap justify-center mt-24">
             @foreach ($rooms as $item)
                 <div class="mx-5 my-5 rounded-md shadow-lg w-96">
-                    <div class="w-full h-64 bg-gray-100 rounded-t-md"></div>
+                    <div class="w-full h-64 bg-gray-100 rounded-t-md"
+                        style="background-image: url(https://picsum.photos/500/500.jpg); background-repeat: no-repeat; background-position: center; object-fit: cover;">
+                    </div>
                     <div class="px-5 py-5">
                         <div class="text-xl">{{ $item->address }}</div>
                         <div class="text-md">{{ $item->home_type }}, {{ $item->room_type }}</div>
