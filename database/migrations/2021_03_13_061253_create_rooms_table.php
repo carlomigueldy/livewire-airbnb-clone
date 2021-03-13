@@ -30,7 +30,7 @@ class CreateRoomsTable extends Migration
             $table->decimal('price');
             $table->float('latitude')->nullable();
             $table->float('longitude')->nullable();
-            $table->timestamp('published_at');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
