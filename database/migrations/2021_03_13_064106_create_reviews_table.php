@@ -19,6 +19,7 @@ class CreateReviewsTable extends Migration
             $table->decimal('rating');
             $table->string('comment');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

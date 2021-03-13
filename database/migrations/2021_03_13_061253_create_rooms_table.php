@@ -33,7 +33,6 @@ class CreateRoomsTable extends Migration
             $table->timestamp('published_at');
             $table->timestamps();
             $table->softDeletes();
-            $table->softDeletes();
         });
     }
 
