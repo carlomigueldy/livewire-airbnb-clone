@@ -1,16 +1,5 @@
 <div>
-    <header class="fixed z-50 flex justify-between w-full h-20 shadow-md bg-gray-50 align-items-center">
-        <button class="w-40 text-xl">Go back</button>
-        <div
-            style="padding: 5px; height: 100%; display: flex; justify-content: center; align-items: center; margin-right: 10px;">
-            <img class="shadow-xl"
-                src="https://static.theceomagazine.net/wp-content/uploads/2018/10/15093202/elon-musk.jpg"
-                title="User avatar"
-                style="cursor: pointer; height: 50px; width: 50px; background-color: indigo; border-radius: 50%; object-fit: cover;" />
-        </div>
-    </header>
-
-    <div class="flex justify-center px-32 py-32 align-items-center">
+    <div class="flex justify-center px-32 align-items-center">
         <form wire:submit.prevent="submit" class="w-6/12">
             <div class="mb-16 text-left">
                 <h1 class="text-4xl">Create a new room</h1>
@@ -78,5 +67,9 @@
 
     {{-- <div class="p-5 font-bold bg-green-300">
         <code>{{ json_encode($this->mapped) }}</code>
+    </div>
+
+    <div class="p-5 font-bold bg-green-300">
+        {{json_encode(url()->previous())}}
     </div> --}}
 </div>

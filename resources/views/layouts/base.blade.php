@@ -23,7 +23,8 @@
     <style>
         @font-face {
             font-family: 'Product Sans';
-            src: url('{{ public_path('fonts/Product Sans Regular.tff') }}');
+            /* src: url('/fonts/Product Sans Regular.tff'); */
+            src: url('{{ storage_path('fonts/Product Sans Regular.tff') }}') format('truetype');
         }
 
         body {

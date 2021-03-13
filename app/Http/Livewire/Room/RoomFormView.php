@@ -134,6 +134,13 @@ class RoomFormView extends Component
         'form.address.required' => 'Please provide the address.',
     ];
 
+    public function back()
+    {
+        // return back();
+        // return redirect()->back();
+        return redirect(route('rooms.index'));
+    }
+
     public function submit()
     {
         if ($this->validate()) {
